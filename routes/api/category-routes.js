@@ -3,14 +3,20 @@ const { Category, Product } = require('../../models');
 
 // The `/api/categories` endpoint
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   // find all categories
+  const data = await Category.findAll();
   // be sure to include its associated Products
+  return res.json(data);
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   // find one category by its `id` value
+  const data = await Category.findOne({
+    where: {id: req.params.id}
+  });
   // be sure to include its associated Products
+  return res.json(data);
 });
 
 router.post('/', (req, res) => {
